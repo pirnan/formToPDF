@@ -1,7 +1,7 @@
 FROM richarvey/nginx-php-fpm:latest
 
-# 1. Install Node.js and NPM
-RUN apk add --no-cache nodejs npm
+# 1. Install specific Node.js version (v22) from community repository
+RUN apk add --no-cache nodejs-current npm --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 COPY . /var/www/html
 
