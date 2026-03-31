@@ -11,15 +11,17 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 COPY . /var/www/html
 
-ENV SKIP_COMPOSER 1
+# These variables help the richarvey image configure Nginx for Laravel
 ENV WEBROOT /var/www/html/public
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV SKIP_COMPOSER 1
 ENV PHP_ERRORS_STDERR 1
 
-# Install PHP dependencies
+# Install PHP and JS dependencies
 RUN composer install --no-dev
-
-# Install JS dependencies and build Vite assets
 RUN npm install && npm run build
 
-# Ensure Laravel permissions
+# Essential for Laravel to write logs and cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
