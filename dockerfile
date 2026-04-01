@@ -12,6 +12,7 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 COPY . /var/www/html
 
 # These variables help the richarvey image configure Nginx for Laravel
+ENV APP_TYPE laravel
 ENV WEBROOT /var/www/html/public
 ENV APP_ENV production
 ENV APP_DEBUG false
