@@ -13,6 +13,9 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . /var/www/html
 
+# Manually force the Nginx config for Laravel
+COPY conf/nginx/laravel.conf /etc/nginx/sites-available/default.conf
+
 # Copy built assets from Stage 1
 COPY --from=node_builder /app/public/build /var/www/html/public/build
 
